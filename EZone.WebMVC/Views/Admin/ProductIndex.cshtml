@@ -1,0 +1,87 @@
+﻿@model List<EZone.Models.ProductListItem>
+
+
+@{
+    ViewBag.Title = "ProductIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Product List <a href="../Admin/AddProduct" class="btn btn-info pull-right fa fa-plus">Add New</a></h6>
+    </div>
+    <ddiv class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th>Product Name</th>
+                        <th>In Stock</th>
+                        <th>Price</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(Model.IndexOf(item)+1)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                $ @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("EditProduct", "Admin", new { id = item.ProductId })" class="btn btn-facebook">Edit</a>
+                                <a href="@Url.Action("ProductDetails", "Admin", new { id = item.ProductId })" class="btn btn-primary">View</a>
+                                @*<a href="@Url.Action("ProductDelete", "Admin", new { id = item.ProductId })" class="btn btn-danger">Delete</a>*@
+                                <a onclick="Delete(@item.ProductId)" class="btn btn-danger">Delete</a>
+
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+        </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Delete Alert', 'Are you sure to delete this product?', function () {
+                window.location.href = '@Url.Action("Delete","Admin")/' + id;
+            }, null);
+         }
+
+
+    </script>
+}
+
+

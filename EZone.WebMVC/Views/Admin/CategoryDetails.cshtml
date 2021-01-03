@@ -1,0 +1,32 @@
+﻿@model EZone.Models.CategoryDetail
+
+@{
+    ViewBag.Title = "CategoryDetails";
+}
+
+<h2>CategoryDetails</h2>
+
+<div>
+    <h4>CategoryDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditCategory", new { id = Model.CategoryId }) |
+    @Html.ActionLink("Back to List", "CategoryIndex")
+</p>

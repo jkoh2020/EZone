@@ -1,0 +1,286 @@
+﻿/*[1. IMPORT SOURCE*/
+@import url(font-awesome.css);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300);
+@import url('MyMainLayOut.css');
+
+/* [NAV MENU]*/
+
+.nav-menus {
+    border-top: 2px solid #333;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+    .nav-menus .nav-pills > li > a {
+        background: transparent;
+        color: #333;
+    }
+
+        .nav-menus .nav-pills > li > a:hover {
+            background: #eaeaea;
+            color: #333
+        }
+
+    .nav-menus .nav-pills > .active > a,
+    .nav-menus .nav-pills > .active > a:hover,
+    .nav-menus .nav-pills > .active > a, :focus {
+        background: #333;
+        color: #fff;
+    }
+
+/*slide CSS for View/Home/Index*/
+.main-text {
+    position: absolute;
+    top: 100px;
+    width: 96.66666666666666%;
+    color: #FFF;
+}
+
+.carousel-btns {
+    margin-top: 2em;
+}
+
+    .carousel-btns .btn {
+        width: 150px;
+    }
+
+/*slide frame*/
+.carousel-inner .imgOverlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: rgba(6, 28, 38, 0.5);
+}
+
+.carousel-inner img {
+    width: 50%;
+}
+
+/*CONTROL*/
+.carousel-control {
+    width: auto;
+}
+
+    .carousel-control .icon-prev,
+    .carousel-control .icon-next,
+    .carousel-control .fa-chevron-left,
+    .carousel-control .fa-chevron-right {
+        position: absolute;
+        top: 47%;
+        right: 0;
+        z-index: 5;
+        display: inline-block;
+        background-color: #000;
+        width: 38px;
+        height: 38px;
+        line-height: 40px;
+        font-size: 14px;
+    }
+
+    .carousel-control .icon-prev,
+    .carousel-control .fa-chevron-left {
+        left: 0;
+    }
+
+.carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    margin: 0 1px;
+    border: 2px solid #fff;
+    opacity: .8;
+}
+
+
+.carousel-indicators .active {
+    background-color: #28ace2;
+    border-color: #28ace2;
+}
+
+.carousel-control .icon-prev, .carousel-control .fa-chevron-left,
+.carousel-control .icon-right, .carousel-control .fa-chevron-right {
+    border-radius: 50px;
+}
+
+.carousel-control .icon-prev, .carousel-control .fa-chevron-left {
+    left: 30px;
+}
+
+.carousel-control .icon-right, .carousel-control .fa-chevron-right {
+    right: 30px;
+}
+
+/*search box*/
+/* olContent*/
+
+.olContent {
+    width: 100%;
+}
+
+    .olContent h2 {
+        color: #fff;
+        font-size: 19px;
+        padding: 9px 0 0;
+    }
+
+/* olSearch*/
+
+.olSearch {
+    width: 100%;
+}
+
+    .olSearch .inputComn {
+        margin-bottom: 0;
+    }
+
+/* inputComn*/
+
+.inputComn {
+    color: white;
+    font-size: 14px;
+    height: 44px;
+    width: 100%;
+    cursor: pointer;
+    padding: 0 15px;
+}
+
+/* searchIcon */
+
+.searchIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.searchBtn {
+    background-color: #005faa;
+    border: 0 none;
+    color: #fff;
+    font-size: 16px;
+    padding: 11px 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    height: 44px;
+}
+
+    .searchBtn:hover {
+        background-color: #326987;
+    }
+
+.olSearch {
+    position: relative;
+}
+
+/*Content*/
+.content {
+}
+
+    .content .page-header {
+        padding-bottom: 5px;
+        margin: 20px 0 30px;
+        border-bottom: 1px solid #eee;
+    }
+
+        .content .page-header h2 {
+            font-weight: 700;
+        }
+
+/*Product*/
+
+product-item {
+    position: relative;
+}
+
+.product-item .caption h5 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    border-top: 2px solid #333;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.product-item .caption .product-item-price {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+}
+
+.product-item-badge {
+    position: absolute;
+    top: 4px;
+    left: 18px;
+    padding: 10px 12px 6px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 8px;
+    font-weight: 600;
+    background: red;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -o-border-image: 4px 0 4px 0;
+    border-radius: 4px 4px 4px 4px;
+}
+
+
+.caption h4 {
+    color: blue;
+}
+
+
+.copyright {
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: 400;
+}
+
+ .copyright .copyright-left {
+        text-align: left;
+ }
+
+.copyright .copyright-right {
+        text-align: right;
+}
+
+.copyright .list-social {
+float: right;
+margin-top: -10px;
+}
+
+.copyright .list-social > li {
+display: inline;
+float: left;
+margin: 2px 5px;
+}
+
+.copyright .list-social > li > a {
+        display: block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #ccc;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        font-size: 20px;
+        color: #333333;
+}
+
+.copyright .list-social > li > a:hover {
+        background: #333333;
+        border: 1px solid #333333;
+        font-size: 20px;
+        color: #ffffff;
+}
+
+    .copyright .list-social > li > a .fa {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -8px;
+        margin-top: -9px;
+    }
+
+           

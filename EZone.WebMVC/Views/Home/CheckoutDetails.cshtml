@@ -1,0 +1,64 @@
+﻿@using EZone.Models.Home;
+@{
+    ViewBag.Title = "CheckoutDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Checkout Details</h2>
+
+@if (Session["cart"] == null)
+{
+    <div class="alert alert-danger">
+        <strong>No product added to cart.</strong>
+    </div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                double orderTotal = 0;
+                double tax = 0.07;
+            }
+            @foreach (Item item in (List<Item>)Session["cart"])
+            {
+                double Subtotal = Math.Round((double)item.Quantity * item.Product.Price, 2);
+                orderTotal = Math.Round((double)orderTotal + Subtotal, 2);
+
+                <tr>
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>$ @item.Product.Price</td>
+                    <td>$ @Subtotal</td>
+
+                </tr>
+
+            }
+            @{
+                double taxAmount = Math.Round((double)orderTotal * tax, 2);
+                double withTaxTotal = Math.Round((double)orderTotal + taxAmount, 2);
+            }
+            <tr>
+                <td colspan="4" class="text-right"><b> <font color="darkblue">Tax: $@taxAmount</font></b></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-right"><b>Order Total: <font color="red">$@withTaxTotal</font> </b></td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="@Url.Action("CreateOrder", "Home")" >Place Your order</a>
+    @*<input type="submit" value="Place your order" class="btn btn-primary" />*@
+    <a onclick="window.history.back();" class="btn btn-info">Shoppting Cart</a>
+ 
+
+}
+

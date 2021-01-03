@@ -1,0 +1,67 @@
+﻿@model List<EZone.Models.CategoryListItem>
+
+@{
+    ViewBag.Title = "CategoryIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Categories</li>
+
+    </ol>
+
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Category Details <a href="../Admin/CreateCategory" class="btn btn-success pull-right ">Add New</a></h6>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            No.
+                        </th>
+                        <th>
+                           Category ID
+                        </th>
+                        <th>
+                           Category Name
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@(Model.IndexOf(item)+1)
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditCategory", new { id = item.CategoryId }) |
+                            @Html.ActionLink("Details", "CategoryDetails", new { id = item.CategoryId }) |
+                            @Html.ActionLink("Delete", "CategoryDelete", new { id = item.CategoryId })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+            </div>
+        </div>
+    </div>

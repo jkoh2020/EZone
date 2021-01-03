@@ -1,0 +1,106 @@
+﻿@using EZone.Models.Home;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My Online Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/MyMainLayOut.css" rel="stylesheet" />
+
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("EZone", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Admin","ProductIndex", "Admin")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Product", "ProductIndex", "Admin") </li>
+                    <li>@Html.ActionLink("Category", "CategoryIndex", "Admin")</li>
+                    <li>@Html.ActionLink("OrderList","OrderIndex", "Admin")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Shopping Cart<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                @if (Session["cart"] != null)
+                                {
+                                    foreach (Item item in (List<Item>)Session["cart"])
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("RemoveItemFromCart", "Home", new {productId = item.Product.ProductId })">@item.Product.ProductName (@item.Quantity) <i class="fa fa-times"></i></a>
+                                        </li>
+
+                                    }
+
+                                    <li>
+                                        <a class="btn btn-success" href="@Url.Action("Checkout", "Home")">Checkout</a>
+                                    </li>
+                                }
+
+
+                            </ul>
+
+                        </li>
+                    </ul>
+                    
+                </ul>
+                
+                @Html.Partial("_LoginPartial")
+            </div>
+           
+            
+
+        </div>
+    </div>
+    
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-md-12 copyright">
+                    <div class="col-md-6 col-sm-6 copyright-left">
+                        <p>&copy; @DateTime.Now.Year - EZone. All rights reserved. </p>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 copyright-right">
+                        <ul class="list-unstyled list-social">
+                            <li><a href="http://www.facebook.com" target="_blank"><i class="fa fa-facebook" style="color:cornflowerblue"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fa fa-twitter" style="font-size: 20px; color:blue"></i></a></li>
+                            <li><a href="http://www.google.com" target="_blank"><i class="fa fa-google" style="color:red"></i></a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/alertify.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
