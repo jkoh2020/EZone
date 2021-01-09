@@ -4,29 +4,37 @@
     ViewBag.Title = "CategoryDetails";
 }
 
-<h2>CategoryDetails</h2>
+<h2>Category Details</h2>
 
 <div>
     <h4>CategoryDetail</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
+    <div class="col-lg-4 col-md-4 col-sm-4" style="font-size:16px;">
+        <dl class="dl-horizontal">
+            <dt>
+               Category ID:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CategoryId)
+            </dd>
+            <dt>
+                Category Name:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
+            </dl>
+    </div>
+    </div>
+    <br />
+    <hr />
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <p>
+            @Html.ActionLink("Edit", "EditCategory", new { id = Model.CategoryId }) |
+            @Html.ActionLink("Back to List", "CategoryIndex")
+        </p>
+    </div>
+   
+    
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "EditCategory", new { id = Model.CategoryId }) |
-    @Html.ActionLink("Back to List", "CategoryIndex")
-</p>
+    

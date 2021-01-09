@@ -21,6 +21,7 @@ else
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Change</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +38,12 @@ else
                         <a href="@Url.Action("DecreaseQuantity", "Home", new { productId = item.Product.ProductId })">
                             <i class="fa fa-minus"></i>
                         </a>
+                        
                     </td>
+                    <td>
+                        <a href="@Url.Action("RemoveItemFromCheckout", "Home", new {productId = item.Product.ProductId })"><i class="fa fa-trash"></i> Remove</a>
+                    </td>
+                    
                 </tr>
             }
         </tbody>

@@ -12,10 +12,10 @@ namespace EZone.Models
         [Key]
         public int ProductId { get; set; }
         [Display(Name = "Category Id")]
-        public int CategoryId { get; set; }
+        public Nullable <int> CategoryId { get; set; }
         [Display(Name ="Category Name")]
         public string CategoryName { get; set; }
-        [Required]
+       
         [Display(Name ="Product Name")]
         [MinLength(2,ErrorMessage ="Enter at lease 2 characters")]
         [MaxLength(100, ErrorMessage ="Too long characters")]

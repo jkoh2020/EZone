@@ -18,8 +18,18 @@ namespace EZone.WebMVC.Controllers
         public ActionResult Index(string search, int? page)
         {
             HomeIndexViewModel model = new HomeIndexViewModel();
-                                             //  page  page size
-            return View(model.CreateModel(search,page, 8));
+                                       //  page  page size
+            return View(model.CreateModel(search, page, 8));
+
+            // Use this code when not using IpagedList
+            //HomeIndexViewModel model = new HomeIndexViewModel();
+            //return View(model.CreateModel());
+        }
+
+        public ActionResult UserProductDetail(int id)
+        {
+            var detail = CreateProductService().GetUserProductDetailById(id);
+            return View(detail);
         }
 
         public ActionResult Checkout()
@@ -186,6 +196,23 @@ namespace EZone.WebMVC.Controllers
 
         }
 
+        public ActionResult RemoveItemFromCheckout(int productId)
+        {
+            List<Item> cart = (List<Item>)Session["cart"];
+
+            foreach (var item in cart)
+            {
+                if (item.Product.ProductId == productId)
+                {
+                    cart.Remove(item);
+                    break;
+                }
+            }
+            Session["cart"] = cart;
+            return RedirectToAction("Checkout");
+
+        }
+
         // Get: order list
 
         public ActionResult OrderIndex()
@@ -239,6 +266,13 @@ namespace EZone.WebMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new OrderService(userId);
+            return service;
+        }
+
+        private ProductService CreateProductService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new ProductService(userId);
             return service;
         }
 

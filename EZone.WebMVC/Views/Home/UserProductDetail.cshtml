@@ -1,0 +1,72 @@
+﻿@model EZone.Models.UserProductDetail
+
+@{
+    ViewBag.Title = "UserProductDetail";
+}
+
+
+
+<div>
+    <h2>Product Details</h2>
+    <hr />
+    <div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <img src="~/ProductImg/@Model.ProductImage" style="width:500px; height:500px" />
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8" style="font-size:16px;">
+                    <dl class="dl-horizontal">
+                        <dt>
+                          
+                        </dt>
+
+                        <dd style="font-size:25px; font-weight:bold">
+                            @Html.DisplayFor(model => model.ProductName)
+                        </dd>
+
+                        <dt>
+                          
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+
+                        <dt>
+                            
+                        </dt>
+
+                        <dd style="font-size:35px; font-weight:bold; color:blue">
+                            $@Html.DisplayFor(model => model.Price)
+                        </dd>
+                        
+                        
+
+                    </dl>
+                    <div class="col-lg-4 col-md-push-3 col-sm-4">
+                        @if (Model.Quantity > 0)
+                        {
+                            using (Html.BeginForm("AddToCart", "Home", new { productId = Model.ProductId, url = "Index" }, FormMethod.Post))
+                            {
+                                <button type="submit" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                            }
+
+
+                        }
+                        else
+                        {
+                            <h2 style="color:red">Sold Out </h2>
+                        }
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -50,8 +50,8 @@ namespace EZone.Services
         }
 
         // Get all products list
-
-        public List<ProductListItem> GetProductsList()
+        
+        public IEnumerable<ProductListItem> GetProductsList()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -61,13 +61,14 @@ namespace EZone.Services
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     CategoryId = p.CategoryId,
-                    CategoryList = p.Category.Select(x => new CategoryListItem {CategoryName = x.CategoryName }).ToList(),
-                   
+                     CategoryName = p.Category.CategoryName,
                     Quantity = p.Quantity,
                     Price = p.Price
                 });
-                
-                return query.OrderBy(p => p.ProductName).ToList();                       
+
+                return query.OrderBy(p => p.ProductName).ToList();
+
+
             }
         }
 
@@ -84,13 +85,13 @@ namespace EZone.Services
                 var category =
                     ctx
                         .Categories
-                        .Single(c => c.CategoryId == product.CategoryId);
-                return
+                        .SingleOrDefault(c => c.CategoryId == product.CategoryId);
+                    return
                     new ProductDetail
                     {
                         ProductId = product.ProductId,
                         CategoryId = product.CategoryId,
-                        CategoryName = category.CategoryName,
+                        CategoryName = category != null ? category.CategoryName : "",
                         ProductName = product.ProductName,
                         Description = product.Description,
                         ProductImage = product.ProductImage,
@@ -100,7 +101,36 @@ namespace EZone.Services
                         CreatedDate = product.CreatedDate,
                         ModifiedDate = product.ModifiedDate
                     };
+               
+                
                         
+            }
+        }
+
+        // Get User product detail by id
+
+        public UserProductDetail GetUserProductDetailById(int id)
+        {
+            using (var ctx = new ApplicationDbContext()) // Ues using statement to connect to the database
+            {
+                var product =
+                    ctx
+                        .Products
+                        .SingleOrDefault(p => p.ProductId == id);
+                return
+                new UserProductDetail
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    Description = product.Description,
+                    ProductImage = product.ProductImage,
+                    Quantity = product.Quantity,
+                    Price = product.Price,
+                   
+                };
+
+
+
             }
         }
 

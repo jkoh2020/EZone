@@ -36,9 +36,9 @@ namespace EZone.Data
         [Display(Name ="Category Name")]
         public string CategoryName { get; set; }
         [Display(Name = "Category Name")]
-        public int CategoryId { get; set; }
+        public Nullable<int> CategoryId { get; set; }
       //  [ForeignKey("CategoryId")]
-        public virtual List<Category> Category { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

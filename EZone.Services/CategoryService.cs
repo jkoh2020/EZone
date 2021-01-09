@@ -66,7 +66,7 @@ namespace EZone.Services
                 return new CategoryDetail
                 {
         // CategoryDetail model         Category data
-                    CategoryId = entity.CategoryId,
+                    CategoryId = (int)entity.CategoryId,
                     CategoryName = entity.CategoryName
                 };
                         

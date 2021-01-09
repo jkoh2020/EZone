@@ -12,7 +12,7 @@ namespace EZone.Models.Home
     public class HomeIndexViewModel
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
-        
+
         public IPagedList<Product> ListOfProducts { get; set; }
         public HomeIndexViewModel CreateModel(string search, int? page, int pageSize)
         {
@@ -24,10 +24,24 @@ namespace EZone.Models.Home
 
             return new HomeIndexViewModel
             {
-                // ListOfProducts = _db.Products
+
                 ListOfProducts = data
             };
-                
+
         }
+       
+        //Use this code when not using IpagedList
+        //private ApplicationDbContext _db = new ApplicationDbContext();
+        //public IEnumerable<Product> ListOfProducts { get; set; }
+        //public HomeIndexViewModel CreateModel()
+        //{
+        //    return new HomeIndexViewModel
+        //    {
+        //        ListOfProducts = _db.Products
+        //    };
+        //}
+
+
+
     }
 }

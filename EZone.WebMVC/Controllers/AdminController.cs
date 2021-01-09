@@ -1,5 +1,6 @@
 ﻿using EZone.Data;
 using EZone.Models;
+using EZone.Models.Home;
 using EZone.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -13,14 +14,21 @@ using System.Web.Mvc;
 
 namespace EZone.WebMVC.Controllers
 {
-    [Authorize(Users ="jkoh@yahoo.com")]
+    [Authorize(Users = "jkoh@yahoo.com")]
     public class AdminController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
-        // GET: Admin/CategoryIndex
-        public ActionResult CategoryIndex()
+        //GET: Admin/CategoryIndex
+        //public ActionResult CategoryIndex()
+        //{
+        //    return View((new CategoryService()).GetCategoryList());
+        //}
+
+        public ActionResult Index()
         {
-            return View((new CategoryService()).GetCategoryList());
+            var categories = _db.Categories.ToList();
+            ViewBag.Categories = categories;
+            return View();
         }
 
         // Get: Admin/CreateCategory
@@ -31,19 +39,28 @@ namespace EZone.WebMVC.Controllers
 
         // Post: Admin/CreateCategory
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateCategory(CategoryCreate model)
-        {
-            if (!ModelState.IsValid) return View(model);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateCategory(CategoryCreate model)
+        //{
+        //    if (!ModelState.IsValid) return View(model);
 
-            if ((new CategoryService()).CreateCategory(model))
-            {
-                TempData["SaveResult"] = "Your category was created.";
-                return RedirectToAction("CategoryIndex");
-            };
-            ModelState.AddModelError("", "Category could not created");
-            return View(model);
+        //    if ((new CategoryService()).CreateCategory(model))
+        //    {
+        //        TempData["SaveResult"] = "Your category was created.";
+        //        return RedirectToAction("Index");
+        //    };
+        //    ModelState.AddModelError("", "Category could not created");
+        //    return View(model);
+        //}
+
+        [HttpPost]
+        public ActionResult CreateCategory(Category category)
+        {
+            _db.Categories.Add(category);
+            _db.SaveChanges();
+            TempData["SuccessMessage"] = "Saved Successfully";
+            return RedirectToAction("Index");
         }
 
         // Get category details
@@ -54,7 +71,7 @@ namespace EZone.WebMVC.Controllers
             return View(model);
         }
 
-        // Get category edit
+        //Get category edit
         public ActionResult EditCategory(int id)
         {
             var service = new CategoryService();
@@ -67,6 +84,7 @@ namespace EZone.WebMVC.Controllers
 
             return View(model);
         }
+
 
         // Post category edit
         [HttpPost]
@@ -100,6 +118,15 @@ namespace EZone.WebMVC.Controllers
         //    var model = service.GetCategoryById(id);
         //    return View(model);
         //}
+
+        public ActionResult DeleteCategory(int id)
+        {
+            Category category = _db.Categories.Find(id);
+            _db.Categories.Remove(category);
+            _db.SaveChanges();
+            TempData["SuccessMessage"] = "Deleted Successuflly";
+            return RedirectToAction("Index");
+        }
 
         public ActionResult CategoryDelete(int? id)
         {
@@ -138,12 +165,57 @@ namespace EZone.WebMVC.Controllers
             return RedirectToAction("CategoryIndex");
         }
 
-        // Get: Product list
-        public ActionResult ProductIndex()
+        //Get: Product list
+        //public ActionResult ProductIndex()
+        //{
+        //    return View(CreateProductService().GetProductsList());
+
+        //}
+
+
+       [Route("ProductIndex")]
+        public ActionResult ProductIndex(string search, int? page)
         {
-            return View(CreateProductService().GetProductsList());
-            
+
+            //List<Product> productList = _db.Products.ToList();
+            //List<Product> orderedList = productList.OrderBy(prod => prod.ProductName).ToList();
+            //return View(_db.Products.Where(x => x.ProductName.StartsWith(searching) || searching == null);
+
+            //return View(CreateProductService().GetProductsList());
+
+
+            List<Product> productList = _db.Products.ToList();
+            ProductListItem productVM = new ProductListItem();
+            List<ProductListItem> productVMList = productList.Select(x => new ProductListItem
+            {
+                ProductName = x.ProductName,
+                CategoryId = x.CategoryId,
+                CategoryName = x.Category.CategoryName,
+                Quantity = x.Quantity,
+                Price = x.Price
+
+            }).ToList();
+            HomeIndexViewModel model = new HomeIndexViewModel();
+
+            return View(model.CreateModel(search, page, 10));
+            //return View(productVMList);
+
+
+
+            //return View(_db.Products.ToList());
         }
+
+        //public ActionResult ProductInd()
+        //{
+
+        //    List<Product> productList = _db.Products.ToList();
+        //    List<Product> orderdList = productList.OrderB
+        //    return View(_db.Products.Where(x => x.ProductName.StartsWith(searching) || searching == null);
+        //    return View(_db.Products.Where(x => x.ProductName.Contains(searching) || searching == null).ToList());
+        //    return View(_db.Products.ToList());
+        //}
+
+
 
         // Get: Admin/AddProduct
         public ActionResult AddProduct()
@@ -302,6 +374,7 @@ namespace EZone.WebMVC.Controllers
             product.ModifiedDate = DateTimeOffset.Now;
 
             _db.Entry(product).State = System.Data.Entity.EntityState.Modified;
+            TempData["SuccessMessage"] = "Updated Successfully";
             _db.SaveChanges();
             return RedirectToAction("ProductIndex");
 
@@ -374,5 +447,8 @@ namespace EZone.WebMVC.Controllers
             var service = new OrderService(userId);
             return service;
         }
+
+        
     }
+
 }
