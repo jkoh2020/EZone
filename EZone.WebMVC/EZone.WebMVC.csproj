@@ -201,6 +201,7 @@
     <Content Include="AdminStyle\js\demo\datatables-demo.js" />
     <Content Include="AdminStyle\js\sb-admin-2.js" />
     <Content Include="AdminStyle\js\sb-admin-2.min.js" />
+    <Content Include="AdminStyle\style.css" />
     <Content Include="AdminStyle\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="AdminStyle\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="AdminStyle\vendor\bootstrap\js\bootstrap.js" />
@@ -2192,9 +2193,11 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Admin\CreateCategory.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\UserProductDetail.cshtml" />
     <Content Include="Views\Admin\ProductInd.cshtml" />
+    <Content Include="Views\Admin\IndexCategory.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

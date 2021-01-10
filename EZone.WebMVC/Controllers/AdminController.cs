@@ -5,6 +5,7 @@ using EZone.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,11 +24,17 @@ namespace EZone.WebMVC.Controllers
         //{
         //    return View((new CategoryService()).GetCategoryList());
         //}
+        
 
-        public ActionResult Index()
+        public ActionResult IndexCategory()
         {
             var categories = _db.Categories.ToList();
             ViewBag.Categories = categories;
+            return View();
+        }
+        public ActionResult Index()
+        {
+            
             return View();
         }
 
@@ -60,7 +67,7 @@ namespace EZone.WebMVC.Controllers
             _db.Categories.Add(category);
             _db.SaveChanges();
             TempData["SuccessMessage"] = "Saved Successfully";
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexCategory");
         }
 
         // Get category details
@@ -125,7 +132,7 @@ namespace EZone.WebMVC.Controllers
             _db.Categories.Remove(category);
             _db.SaveChanges();
             TempData["SuccessMessage"] = "Deleted Successuflly";
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexCategory");
         }
 
         public ActionResult CategoryDelete(int? id)
@@ -354,14 +361,13 @@ namespace EZone.WebMVC.Controllers
 
         }
 
-        
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProduct(Product product, HttpPostedFileBase file)
         {
-           
+
             string pic = null;
+
             if (file != null)
             {
                 pic = Path.GetFileName(file.FileName);
@@ -369,7 +375,7 @@ namespace EZone.WebMVC.Controllers
                 // file is uploaded
                 file.SaveAs(path);
             }
-            product.ProductImage = file !=null? pic : product.ProductImage;
+            product.ProductImage = file != null ? pic : product.ProductImage;
 
             product.ModifiedDate = DateTimeOffset.Now;
 

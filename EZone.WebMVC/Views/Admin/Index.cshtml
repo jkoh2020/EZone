@@ -1,123 +1,13 @@
-﻿@model EZone.Models.CategoryListItem
-
+﻿
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 @{
     ViewBag.Title = "Index";
-    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
+  
 
 
-
-<script src="~/Scripts/jquery-3.5.1.min.js"></script>
-<link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
-<link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
-
-<h2>Category List</h2>
-
-<p>
-    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">Add New Category</a>
-</p>
-<div class="modal fade" id="categoryModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Add Category</h3>
-            </div>
-            <div class="modal-body">
-                <form id="categoryForm">
-                    <label>Category Name</label>
-                    @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control" })
-                </form>
-            </div>
-            <div class="modal-footer">
-                <div class="btn-block">
-                    <a href="#" id="btnSave" class="btn btn-primary mr-3">Save</a>
-                    <a href="#" id="btnCancel" class="btn btn-danger">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<script>
-    $(document).ready(function () {
-        $("#btnSave").click(function () {
-            var categoryFormData = $("#categoryForm").serialize();
-
-            $.ajax({
-                type: "POST",
-                url: "/Admin/CreateCategory",
-                data: categoryFormData,
-                success: function () {
-
-                    window.location.href = "/Admin/Index";
-                }
-            })
-
-        })
-
-        $("#btnCancel").click(function () {
-            window.location.href = "/Admin/Index";
-        })
-
-    })
-
-
-</script>
-
-
-
-
-<table class="table table-bordered">
-    <tr class="btn-primary">
-        <th>
-            Category ID
-        </th>
-        <th>
-            Category Name
-        </th>
-
-        <th>
-            Action
-        </th>
-
-    </tr>
-
-
-
-    @foreach (var item in ViewBag.Categories)
-    {
-        <tr>
-            <td>
-                @item.CategoryId
-            </td>
-            <td>
-                @item.CategoryName
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-
-                <a onclick="Delete(@item.CategoryId)" class="btn btn-pencil"><i class="fa fa-trash"></i> Delete</a>
-            </td>
-        </tr>
-    }
-
-</table>
-
-@section scripts{
-    <script>
-        $(function () {
-            var successMessage = '@TempData["SuccessMessage"]'
-            if (successMessage != '')
-                alertify.success(successMessage);
-        });
-
-        function Delete(id) {
-            alertify.confirm('Delete Alert', 'Are you sure you want to delete this category?', function () {
-                window.location.href = '@Url.Action("DeleteCategory", "Admin")/' + id;
-            }, null);
-         }
-    </script>
 }

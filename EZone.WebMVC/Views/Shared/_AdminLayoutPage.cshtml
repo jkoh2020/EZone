@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminStyle/style.css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AdminStyle/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/AdminStyle/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="/Home/Index">
+                    <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Account/Index">
+                    <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <span class="title">Account</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/IndexCategory">
+                    <span class="icon"><i class="fa fa-table" aria-hidden="true"></i></span>
+                    <span class="title">Category</span>
+                </a>
+            </li>
+            <li>
+                <a href="ProductIndex">
+                    <span class="icon"><i class="fa fa-table" aria-hidden="true"></i></span>
+                    <span class="title">Product</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon"></span>
+                    <span class="title">Order</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    @RenderBody()
+    <div class="toggle" onclick="toggleMenu()"></div>
+    <script type="text/javascript">
+        function toggleMenu() {
+            let navigation = document.querySelector('.navigation');
+            let toggle = document.querySelector('.toggle');
+            navigation.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+@RenderSection("scripts", required: false)
+
+</html>
+
+<script src="~/Scripts/alertify.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="~/AdminStyle/vendor/jquery/jquery.min.js"></script>
+<script src="~/AdminStylevendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="~/AdminStyle/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="~/AdminStyle/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="~/AdminStyle/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="~/AdminStyle/js/demo/chart-area-demo.js"></script>
+<script src="~/AdminStyle/js/demo/chart-pie-demo.js"></script>
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Delete Alert', 'Are you sure to delete this product?', function () {
+                window.location.href = '@Url.Action("Delete","Admin")/' + id;
+            }, null);
+         }
+    </script>
+}
