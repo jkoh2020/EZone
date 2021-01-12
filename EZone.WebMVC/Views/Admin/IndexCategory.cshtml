@@ -78,6 +78,9 @@
         <thead>
             <tr class="btn-primary">
                 <th>
+                    No.
+                </th>
+                <th>
                     Category ID
                 </th>
                 <th>
@@ -90,25 +93,32 @@
 
             </tr>
         </thead>
-
+        @{
+            int count = 0;
+        }
 
         @foreach (var item in ViewBag.Categories)
-        {
-            <tr>
-                <td>
-                    @item.CategoryId
-                </td>
-                <td>
-                    @item.CategoryName
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        {count = count + 1;
+        <tr>
 
-                    <a onclick="Delete(@item.CategoryId)" class="btn btn-pencil"><i class="fa fa-trash"></i> Delete</a>
-                </td>
-            </tr>
-        }
+            <td>
+                @*@(Model.IndexOf(item)+1)*@
+                @count
+            </td>
+            <td>
+                @item.CategoryId
+            </td>
+            <td>
+                @item.CategoryName
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+
+                <a onclick="Delete(@item.CategoryId)" class="btn btn-pencil"><i class="fa fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+    }
 
     </table>
 </div>

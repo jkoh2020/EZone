@@ -1,0 +1,70 @@
+﻿@model EZone.Data.Order
+
+{
+    ViewBag.Title = "PlaceOrder";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateCategory</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h2>PlaceOrder</h2>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <table class="table">
+                    @{
+                        var t = @ViewBag.t;
+                        Html.BeginForm("CompleteOrder", "Home", FormMethod.Post);
+                        <tr>
+                            <td>First Name:</td>
+                            <td>@Html.TextBoxFor(a => a.FirstName) </td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td>@Html.TextBoxFor(a => a.LastName) </td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number:</td>
+                            <td>@Html.TextBoxFor(a => a.PhoneNumber) </td>
+                        </tr>
+                        <tr>
+                            <td>Mailing Address:</td>
+                            <td>@Html.TextBoxFor(a => a.Address) </td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td>@Html.TextBoxFor(a => a.City) </td>
+                        </tr>
+                        <tr>
+                            <td>State</td>
+                            <td>@Html.TextBoxFor(a => a.State) </td>
+                        </tr>
+                        <tr>
+                            <td>Zip Code</td>
+                            <td>@Html.TextBoxFor(a => a.ZipCode) </td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount:</td>
+                            <td>@Html.TextBox("total", new { t }) </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Order" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</body>
+</html>

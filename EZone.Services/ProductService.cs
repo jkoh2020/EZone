@@ -61,7 +61,7 @@ namespace EZone.Services
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                     CategoryId = p.CategoryId,
-                     CategoryName = p.Category.CategoryName,
+                    CategoryName = p.Category.CategoryName,
                     Quantity = p.Quantity,
                     Price = p.Price
                 });

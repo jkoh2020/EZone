@@ -52,19 +52,37 @@
                         </ul>
 
                     </li>
-                   
-                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Account")</li>
-                    <li>@Html.ActionLink("Product", "ProductIndex", "Admin") </li>
-                    <li>@Html.ActionLink("Category", "IndexCategory", "Admin")</li>
-                    <li>@Html.ActionLink("OrderList", "OrderIndex", "Admin")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+
+                        if (User.IsInRole("admin"))
+                        {
+                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Account")</li>
+                            <li>@Html.ActionLink("Product", "ProductIndex", "Admin") </li>
+                            <li>@Html.ActionLink("Category", "IndexCategory", "Admin")</li>
+                            <li>@Html.ActionLink("OrderList", "OrderIndex", "Admin")</li>
+                           
+
+                        }
+
+                    }
+                    @*else
+                    {
+                        <li>
+                            @Html.ActionLink("Login", "Login", "Account")
+                        </li>
+                    }*@
+
+
+
 
 
 
                     @*<ul class="nav navbar-nav navbar-right">
-                    </ul>*@
+        </ul>*@
 
                 </ul>
                 

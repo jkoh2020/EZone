@@ -23,8 +23,8 @@ namespace EZone.Services
             {
                 var query = ctx.Orders.Select(o => new OrderListItem
                 {
-                    ProductId = o.ProductId,
-                    OrderQuantity = o.OrderQuantity,
+                    //ProductId = o.ProductId,
+                    //OrderQuantity = o.OrderQuantity,
                     OrderTotal = o.OrderTotal,
                     DateOfOrder = o.DateOfOrder,
                     DateOfShipping = o.DateOfOrder
@@ -57,15 +57,12 @@ namespace EZone.Services
                         OrderDate = order.DateOfOrder,
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
-                        OrderQuantity = order.OrderQuantity,
-                        OrderPrice = product.Price,
+                        //OrderQuantity = order.OrderQuantity,
+                        Price = product.Price,
                         OrderTotal = order.OrderTotal,
-                        CustomerId = customer.CustomerId,
-                        FirstName = customer.FirstName,
-                        LastName = customer.LastName,
-                        Address = customer.Address,
+                       
                         //IsShipped = order.IsShipped,
-                        DateOfShipped = order.DateOfOrder
+                        //DateOfShipped = order.DateOfOrder
 
                     };
             }

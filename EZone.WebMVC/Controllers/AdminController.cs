@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace EZone.WebMVC.Controllers
 {
-    [Authorize(Users = "jkoh@yahoo.com")]
+    [Authorize]
     public class AdminController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
@@ -24,14 +24,15 @@ namespace EZone.WebMVC.Controllers
         //{
         //    return View((new CategoryService()).GetCategoryList());
         //}
-        
 
+       
         public ActionResult IndexCategory()
         {
             var categories = _db.Categories.ToList();
             ViewBag.Categories = categories;
             return View();
         }
+       
         public ActionResult Index()
         {
             
@@ -39,6 +40,7 @@ namespace EZone.WebMVC.Controllers
         }
 
         // Get: Admin/CreateCategory
+       
         public ActionResult CreateCategory()
         {
             return View();
@@ -179,8 +181,8 @@ namespace EZone.WebMVC.Controllers
 
         //}
 
-
-       [Route("ProductIndex")]
+        [Authorize(Roles = "admin")]
+        [Route("ProductIndex")]
         public ActionResult ProductIndex(string search, int? page)
         {
 

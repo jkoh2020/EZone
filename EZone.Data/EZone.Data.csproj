@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cart.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="IdentityModels.cs" />
@@ -70,6 +71,18 @@
     <Compile Include="Migrations\202101072059007_firstTrial.cs" />
     <Compile Include="Migrations\202101072059007_firstTrial.Designer.cs">
       <DependentUpon>202101072059007_firstTrial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101110346000_makeOrder.cs" />
+    <Compile Include="Migrations\202101110346000_makeOrder.Designer.cs">
+      <DependentUpon>202101110346000_makeOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101112335119_general.cs" />
+    <Compile Include="Migrations\202101112335119_general.Designer.cs">
+      <DependentUpon>202101112335119_general.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101112350438_cart.cs" />
+    <Compile Include="Migrations\202101112350438_cart.Designer.cs">
+      <DependentUpon>202101112350438_cart.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
@@ -146,6 +159,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101072059007_firstTrial.resx">
       <DependentUpon>202101072059007_firstTrial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101110346000_makeOrder.resx">
+      <DependentUpon>202101110346000_makeOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101112335119_general.resx">
+      <DependentUpon>202101112335119_general.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101112350438_cart.resx">
+      <DependentUpon>202101112350438_cart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,6 +12,7 @@ using EZone.WebMVC.Models;
 using EZone.Data;
 using EZone.Services;
 using EZone.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EZone.WebMVC.Controllers
 {
@@ -435,17 +436,27 @@ namespace EZone.WebMVC.Controllers
             var userService = new UserService();
             var users = userService.GetAllUsers();
 
+            //using (var ctx = new ApplicationDbContext())
+            //{
+            //    ctx.Roles.Add(new IdentityRole()
+            //    {
+            //        Name = "admin",
+            //    });
+            //    ctx.SaveChanges();
+            //}
+           
             var userList = users.Select(u =>
-            {
-                return new UserListItem()
                 {
-                    UserId = u.Id,
-                    UserName = u.UserName,
-                    Email = u.Email,
+                    return new UserListItem()
+                    {
+                        UserId = u.Id,
+                        UserName = u.UserName,
+                        Email = u.Email,
+                        
 
-                };
+                    };
 
-            }).ToList();
+                }).ToList();
             return View(userList);
         }
 
@@ -457,7 +468,8 @@ namespace EZone.WebMVC.Controllers
             {
                 UserName = User.UserName,
                 Email = User.Email,
-                UserId = User.Id
+                UserId = User.Id,
+                
             };
 
             return View(userDetailModel);
@@ -487,13 +499,13 @@ namespace EZone.WebMVC.Controllers
             var currentUserId = User.Identity.GetUserId();
             var currentRoles = UserManager.GetRoles(currentUserId);
             var UserRoles = UserManager.GetRoles(userId);
-            bool UserIsAdmin = UserRoles.Any(r => r == "admin");
+            bool UserIsAdmin = UserRoles.Any(r => r == "admin");    // Important 
 
-            if (!currentRoles.Contains("admin"))
-            {
-                ModelState.AddModelError("", "You do not have permission to to this");
-                return View(model);
-            }
+            //if (!currentRoles.Contains("admin"))
+            //{
+            //    ModelState.AddModelError("", "You do not have permission to to this");
+            //    return View(model);
+            //}
 
             if (!ModelState.IsValid) return View(model);
             if(model.UserId != userId)

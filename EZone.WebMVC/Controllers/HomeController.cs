@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace EZone.WebMVC.Controllers
 {
-    
+   
     public class HomeController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
@@ -42,27 +42,74 @@ namespace EZone.WebMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CheckoutDetails(OrderCreate model)
+        public ActionResult PlaceOrder(string total)
         {
-            if (ModelState.IsValid)
-            {
-                Order order = new Order()
-                {
-                    OrderId = model.OrderId,
-                    ProductId = model.ProductId,
-                    OrderQuantity = model.OrderQuantity,
-                    DateOfOrder = DateTimeOffset.Now
-                };
-                Product product = _db.Products.Find(order.ProductId);
-                product.Quantity -= order.OrderQuantity;
-                _db.Orders.Add(order);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(model);
+            ViewBag.t = total;
+            return View();
         }
+
+        public ActionResult CompleteOrder(int id)
+        {
+            bool isValid = _db.Orders.Any(
+                o => o.OrderId == id &&
+                o.LastName == User.Identity.Name);
+           if (isValid)
+            {
+                return View(id);
+            }
+           else
+            {
+                return View("Error");
+            }
+
+
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CompletedOrder(Order order, string total)
+        //{
+        //    Order obj = new Order();
+        //    obj.DateOfOrder = DateTimeOffset.Now;
+        //    obj.FirstName = order.FirstName;
+        //    obj.LastName = order.LastName;
+        //    obj.PhoneNumber = order.PhoneNumber;
+        //    obj.Address = order.Address;
+        //    obj.City = order.City;
+        //    obj.State = order.State;
+        //    obj.ZipCode = order.ZipCode;
+        //    obj.OrderTotal = double.Parse(total);
+        //    _db.Orders.Add(obj);
+        //    _db.SaveChanges();
+        //    //max order id for order details
+        //    int orderId = _db.Orders.Select(a => a.OrderId).DefaultIfEmpty(0).Max();
+
+            
+
+        //    return RedirectToAction("Index");
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CheckoutDetails(OrderCreate model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Order order = new Order()
+        //        {
+        //            OrderId = model.OrderId,
+        //            ProductId = model.ProductId,
+        //            OrderQuantity = model.OrderQuantity,
+        //            DateOfOrder = DateTimeOffset.Now
+        //        };
+        //        Product product = _db.Products.Find(order.ProductId);
+        //        product.Quantity -= order.OrderQuantity;
+        //        _db.Orders.Add(order);
+        //        _db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
 
         public ActionResult DecreaseQuantity(int productId)
         {
@@ -232,36 +279,36 @@ namespace EZone.WebMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateOrder(OrderCreate model)
-        {
-            if (ModelState.IsValid)
-            {
-                Order order = new Order()
-                {
-                    OrderId = model.OrderId,
-                    ProductId = model.ProductId,
-                    OrderQuantity = model.OrderQuantity,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    Address = model.Address,
-                    City = model.City,
-                    State = model.State,
-                    ZipCode = model.ZipCode,
-                    DateOfOrder = DateTimeOffset.Now
-                };
-                Product product = _db.Products.Find(order.ProductId);
-                product.Quantity -= order.OrderQuantity;
-                _db.Orders.Add(order);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateOrder(OrderCreate model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Order order = new Order()
+        //        {
+        //            OrderId = model.OrderId,
+        //            ProductId = model.ProductId,
+        //            OrderQuantity = model.OrderQuantity,
+        //            FirstName = model.FirstName,
+        //            LastName = model.LastName,
+        //            PhoneNumber = model.PhoneNumber,
+        //            Address = model.Address,
+        //            City = model.City,
+        //            State = model.State,
+        //            ZipCode = model.ZipCode,
+        //            DateOfOrder = DateTimeOffset.Now
+        //        };
+        //        Product product = _db.Products.Find(order.ProductId);
+        //        product.Quantity -= order.OrderQuantity;
+        //        _db.Orders.Add(order);
+        //        _db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
 
-       
+
         private OrderService CreateOrderService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());

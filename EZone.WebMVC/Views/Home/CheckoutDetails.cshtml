@@ -55,8 +55,11 @@ else
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-success" href="@Url.Action("CreateOrder", "Home")" >Place Your order</a>
+    @Html.BeginForm("PlaceOrder", "Home", FormMethod.Post)
+    @*<a class="btn btn-success" href="@Url.Action("PlaceOrder", "Home", new { total = withTaxTotal })" >Place Your order</a>*@
     @*<input type="submit" value="Place your order" class="btn btn-primary" />*@
+    <input type="hidden" value="@withTaxTotal" name="total"/>
+    <input type="submit" value="PlaceOrder" class="btn-success" btn-sm"/>
     <a onclick="window.history.back();" class="btn btn-info">Shoppting Cart</a>
  
 

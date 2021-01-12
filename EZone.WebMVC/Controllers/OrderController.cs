@@ -16,51 +16,51 @@ namespace EZone.WebMVC.Controllers
 
         // Get: order list
 
-        public ActionResult OrderIndex()
-        {
-            return View(CreateOrderService().GetOrdersList());
-        }
+        //public ActionResult OrderIndex()
+        //{
+        //    return View(CreateOrderService().GetOrdersList());
+        //}
 
-        // Get: order detail by id
-        public ActionResult OrderDetailById(int id)
-        {
-            var detail = CreateOrderService().GetOrderDetailById(id);
-            return View(detail);
-        }
+        //// Get: order detail by id
+        //public ActionResult OrderDetailById(int id)
+        //{
+        //    var detail = CreateOrderService().GetOrderDetailById(id);
+        //    return View(detail);
+        //}
 
-        public ActionResult CreateOrder()
-        {
-            return View();
-        }
+        //public ActionResult CreateOrder()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateOrder(OrderCreate model)
-        {
-            if (ModelState.IsValid)
-            {
-                Order order = new Order()
-                {
-                    OrderId = model.OrderId,
-                    ProductId = model.ProductId,
-                    OrderQuantity = model.OrderQuantity,
-                    DateOfOrder = DateTimeOffset.Now
-                };
-                Product product = _db.Products.Find(order.ProductId);
-                product.Quantity -= order.OrderQuantity;
-                _db.Orders.Add(order);
-                _db.SaveChanges();
-                return RedirectToAction("~/Home/Index");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateOrder(OrderCreate model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Order order = new Order()
+        //        {
+        //            OrderId = model.OrderId,
+        //            ProductId = model.ProductId,
+        //            OrderQuantity = model.OrderQuantity,
+        //            DateOfOrder = DateTimeOffset.Now
+        //        };
+        //        Product product = _db.Products.Find(order.ProductId);
+        //        product.Quantity -= order.OrderQuantity;
+        //        _db.Orders.Add(order);
+        //        _db.SaveChanges();
+        //        return RedirectToAction("~/Home/Index");
+        //    }
+        //    return View(model);
+        //}
 
-        private OrderService CreateOrderService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new OrderService(userId);
-            return service;
-        }
+        //private OrderService CreateOrderService()
+        //{
+        //    var userId = Guid.Parse(User.Identity.GetUserId());
+        //    var service = new OrderService(userId);
+        //    return service;
+        //}
     }
 }
 
