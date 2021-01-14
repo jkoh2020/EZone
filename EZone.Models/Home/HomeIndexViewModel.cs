@@ -29,8 +29,8 @@ namespace EZone.Models.Home
             };
 
         }
-       
-        //Use this code when not using IpagedList
+
+        // *** Use this code when not using IpagedList
         //private ApplicationDbContext _db = new ApplicationDbContext();
         //public IEnumerable<Product> ListOfProducts { get; set; }
         //public HomeIndexViewModel CreateModel()

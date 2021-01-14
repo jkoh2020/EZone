@@ -1,4 +1,5 @@
 ﻿@*@model IEnumerable<EZone.Models.ProductListItem>*@
+
 @model EZone.Models.Home.HomeIndexViewModel
 
 @using PagedList;
@@ -17,9 +18,9 @@
 <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
 <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 
-@*<div class="col-lg-4 col-md-push-2 col-sm-4">
-<h2>Product List</h2>
-</div><br /><br />*@
+<!--<div class="col-lg-4 col-md-push-2 col-sm-4">-->
+@*<h2>Product List</h2>*@
+<!--</div><br />-->
 
       <div class="container" @*style="margin-top:5%"*@>
           <h2>Product List</h2>
@@ -59,7 +60,6 @@
                       <th>No.</th>
                       <th>Category ID</th>
                       <th>Image</th>
-                      @*<th>Category Name</th>*@
                       <th>Product Name</th>
                       <th>In Stock</th>
                       <th>Price</th>
@@ -78,9 +78,9 @@
                       <td>
                           @item.CategoryId
                       </td>
-                      @*<td>
-            @item.Category.CategoryName
-        </td>*@
+                      <!--<td>-->
+            @*@item.Category.CategoryName*@
+        <!--</td>-->
                       <td>
                           <img src="~/ProductImg/@item.ProductImage" height="40" width="60" />
                       </td>
@@ -95,7 +95,7 @@
                       </td>
 
                       <td>
-                          <a href="@Url.Action("EditProduct", "Admin", new { id = item.ProductId })" class="btn btn-success">Edit</a>
+                          <a href="@Url.Action("EditProduct", "Admin", new { id = item.ProductId })" class="btn btn-warning">Edit</a>
                           <a href="@Url.Action("ProductDetails", "Admin", new { id = item.ProductId })" class="btn btn-primary">View</a>
                           @*<a href="@Url.Action("ProductDelete", "Admin", new { id = item.ProductId })" class="btn btn-danger">Delete</a>*@
                           <a onclick="Delete(@item.ProductId)" class="btn btn-danger">Delete</a>
@@ -105,11 +105,6 @@
                   </tr>
 
                   }
-
-
-
-
-
 
               </tbody>
 

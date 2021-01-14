@@ -1,0 +1,22 @@
+﻿@model EZone.Models.MultipleDisplay
+
+@{
+    ViewBag.Title = "MultiDisplay";
+}
+
+<h2>Order</h2>
+<div>
+ @{ WebGrid orderDisplay = new WebGrid(source: Model.ListA, canPage: true, rowsPerPage: 10);}
+    @orderDisplay.GetHtml();
+</div>
+<br /><br /><br />
+<h2>OrderDetail</h2>
+<div>
+    @{ WebGrid orderDetailDisplay = new WebGrid(source: Model.ListB, canPage: true, rowsPerPage: 10);}
+    @orderDetailDisplay.GetHtml();
+</div>
+
+
+
+    
+

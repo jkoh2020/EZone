@@ -112,9 +112,8 @@
                 @item.CategoryName
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-
+                <a href="@Url.Action("EditCategory", "Admin", new { id = item.CategoryId })" class="btn btn-pencil"><i class="fa fa-pencil"></i> Edit</a>|
+                <a href="@Url.Action("CategoryDetails", "Admin", new { id = item.CategoryId })" class="btn btn-pencil"><i class="fa fa-book"></i> Details</a>|
                 <a onclick="Delete(@item.CategoryId)" class="btn btn-pencil"><i class="fa fa-trash"></i> Delete</a>
             </td>
         </tr>

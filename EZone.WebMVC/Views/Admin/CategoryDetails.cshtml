@@ -2,17 +2,23 @@
 
 @{
     ViewBag.Title = "CategoryDetails";
+    
 }
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/MyMainLayOut.css" rel="stylesheet" />
+<link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+<link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 <h2>Category Details</h2>
 
-<div>
+<div class="container">
     <h4>CategoryDetail</h4>
     <hr />
     <div class="col-lg-4 col-md-4 col-sm-4" style="font-size:16px;">
         <dl class="dl-horizontal">
             <dt>
-               Category ID:
+                Category ID:
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.CategoryId)
@@ -23,18 +29,18 @@
             <dd>
                 @Html.DisplayFor(model => model.CategoryName)
             </dd>
-            </dl>
+        </dl>
     </div>
-    </div>
-    <br />
-    <hr />
-    <div class="col-lg-4 col-md-4 col-sm-4">
-        <p>
-            @Html.ActionLink("Edit", "EditCategory", new { id = Model.CategoryId }) |
-            @Html.ActionLink("Back to List", "CategoryIndex")
-        </p>
-    </div>
-   
-    
+</div>
+<br />
+<hr />
+<div class="col-lg-4 col-md-4 col-sm-4">
+    <p>
+        @Html.ActionLink("Edit", "EditCategory", new { id = Model.CategoryId }) |
+        @Html.ActionLink("Back to List", "IndexCategory")
+    </p>
+</div>
 
-    
+
+
+

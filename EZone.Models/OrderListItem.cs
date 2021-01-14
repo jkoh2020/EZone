@@ -11,7 +11,7 @@ namespace EZone.Models
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public int OrderQuantity { get; set; }
-        public double OrderTotal { get; set; }
+        public decimal OrderTotal { get; set; }
         public bool IsShipped { get; set; }
         public DateTimeOffset DateOfOrder { get; set; }
         public DateTimeOffset? DateOfShipping { get; set; }

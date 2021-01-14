@@ -23,7 +23,7 @@ namespace EZone.Models
         public string ProductImage { get; set; }
         [Display(Name = "Is New")]
         public int Quantity { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         [Display(Name ="Is New")]
         public bool IsNew { get; set; }
         [Display(Name = "Date Modified")]

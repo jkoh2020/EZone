@@ -58,7 +58,9 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="submit" value="Order" />
+                                @*<input type="submit" value="PlaceOrder" class="btn-success" btn-sm" />*@
+                                <a class="btn btn-primary" href="@Url.Action("CheckoutDetails", "Home")">Order</a>
+                                <a onclick="window.history.back();" class="btn btn-danger">Cancel</a>
                             </td>
                         </tr>
                     }

@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace EZone.WebMVC.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
@@ -35,8 +35,17 @@ namespace EZone.WebMVC.Controllers
        
         public ActionResult Index()
         {
-            
-            return View();
+
+            //var display = new MultipleDisplay();
+            //display.Categories = _db.Categories.ToList();
+            //display.Products = _db.Products.ToList();
+            //return View(display);
+           
+            MultipleDisplay display = new MultipleDisplay(); // Multiple data display: order and orderdetail data
+            display.ListA = _db.Orders.ToList();
+            display.ListB = _db.OrderDetails.ToList();
+            return View(display);
+
         }
 
         // Get: Admin/CreateCategory
@@ -181,18 +190,11 @@ namespace EZone.WebMVC.Controllers
 
         //}
 
-        [Authorize(Roles = "admin")]
+
+        //[Authorize(Roles = "admin")]
         [Route("ProductIndex")]
         public ActionResult ProductIndex(string search, int? page)
         {
-
-            //List<Product> productList = _db.Products.ToList();
-            //List<Product> orderedList = productList.OrderBy(prod => prod.ProductName).ToList();
-            //return View(_db.Products.Where(x => x.ProductName.StartsWith(searching) || searching == null);
-
-            //return View(CreateProductService().GetProductsList());
-
-
             List<Product> productList = _db.Products.ToList();
             ProductListItem productVM = new ProductListItem();
             List<ProductListItem> productVMList = productList.Select(x => new ProductListItem
@@ -205,24 +207,26 @@ namespace EZone.WebMVC.Controllers
 
             }).ToList();
             HomeIndexViewModel model = new HomeIndexViewModel();
-
             return View(model.CreateModel(search, page, 10));
+
+            //    return View(model.CreateModel());
             //return View(productVMList);
 
 
 
-            //return View(_db.Products.ToList());
+
+            //    //return View(_db.Products.ToList());
+            //}
+
+            // *** use this code when database is null ***//
+            //public ActionResult ProductInd()
+            //{
+
+            //    List<Product> productList = _db.Products.ToList();
+            //    List<Product> orderedList = productList.OrderBy(prod => prod.ProductName).ToList();
+
+            //    return View(orderedList);
         }
-
-        //public ActionResult ProductInd()
-        //{
-
-        //    List<Product> productList = _db.Products.ToList();
-        //    List<Product> orderdList = productList.OrderB
-        //    return View(_db.Products.Where(x => x.ProductName.StartsWith(searching) || searching == null);
-        //    return View(_db.Products.Where(x => x.ProductName.Contains(searching) || searching == null).ToList());
-        //    return View(_db.Products.ToList());
-        //}
 
 
 
@@ -241,27 +245,26 @@ namespace EZone.WebMVC.Controllers
             return View();
         }
 
+        // *** Use this code when database is null to add product ***
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddProduct(Product product)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _db.Products.Add(product);
+        //        _db.SaveChanges();
+        //        return RedirectToAction("ProductIndex"); // Go to Index
+        //    }
+
+        //    return View(product);
+        //}
+
         // Post: Admin/AddProduct
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProduct(Product model, HttpPostedFileBase file)
         {
-
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
-
-            //if (CreateProductService().CreateProduct(model) && file !=null)
-            //{
-
-            //    TempData["SaveResult"] = "Product was created";
-            //    return RedirectToAction("ProductIndex");
-            //}
-
-            //ModelState.AddModelError("", "Product could not be created.");
-            //return View(model);
 
             string pic = null;
             if (file != null)
@@ -426,22 +429,6 @@ namespace EZone.WebMVC.Controllers
             return RedirectToAction("ProductIndex");
         }
 
-        // Get: order list
-
-        public ActionResult OrderIndex()
-        {
-            return View(CreateOrderService().GetOrdersList());
-        }
-
-        // Get: order detail by id
-        public ActionResult OrderDetailById(int id)
-        {
-            var detail = CreateOrderService().GetOrderDetailById(id);
-            return View(detail);
-        }
-
-
-
         private ProductService CreateProductService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
@@ -449,12 +436,7 @@ namespace EZone.WebMVC.Controllers
             return service;
         }
 
-        private OrderService CreateOrderService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new OrderService(userId);
-            return service;
-        }
+        
 
         
     }

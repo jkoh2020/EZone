@@ -1,6 +1,7 @@
 ﻿using EZone.Data;
 using EZone.Models;
 using EZone.Models.Home;
+using EZone.Models.ViewModels;
 using EZone.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -18,12 +19,13 @@ namespace EZone.WebMVC.Controllers
         public ActionResult Index(string search, int? page)
         {
             HomeIndexViewModel model = new HomeIndexViewModel();
-                                       //  page  page size
+                                              //  page  page size
             return View(model.CreateModel(search, page, 8));
 
-            // Use this code when not using IpagedList
+            ////// Use this code when not using IpagedList
             //HomeIndexViewModel model = new HomeIndexViewModel();
             //return View(model.CreateModel());
+
         }
 
         public ActionResult UserProductDetail(int id)
@@ -170,61 +172,105 @@ namespace EZone.WebMVC.Controllers
             return RedirectToAction("Checkout");
         }
 
-        public ActionResult AddToCart(int productId)
+        //public ActionResult AddToCart(int productId)
+        //{
+        //    if (Session["cart"] == null)
+        //    {
+        //        List<Item> cart = new List<Item>();
+        //        var product = _db.Products.Find(productId);
+        //        cart.Add(new Item()
+        //        {
+        //            Product = product,
+        //            Quantity = 1
+        //        });
+        //        Session["cart"] = cart;
+        //    }
+        //    else
+        //    {
+        //        List<Item> cart = (List<Item>)Session["cart"];
+        //        var count = cart.Count();
+        //        var product = _db.Products.Find(productId);
+
+        //        for (int i = 0; i < count; i++)
+        //        {
+        //            if (cart[i].Product.ProductId == productId)
+        //            {
+        //                int previousQuantity = cart[i].Quantity;
+        //                cart.Remove(cart[i]);
+        //                cart.Add(new Item()
+        //                {
+        //                    Product = product,
+        //                    Quantity = previousQuantity + 1
+        //                });
+        //                break;
+        //            }
+        //            else
+        //            {
+        //                var p = cart.Where(x => x.Product.ProductId == productId).SingleOrDefault();
+        //                if (p == null)
+
+        //                {
+        //                    cart.Add(new Item()
+        //                    {
+        //                        Product = product,
+        //                        Quantity = 1
+        //                    });
+
+        //                }
+        //            }
+        //        }
+
+        //        Session["cart"] = cart;
+
+        //    }
+
+        //    return RedirectToAction("Index");
+
+        //}
+
+        public ActionResult AddToCart(int id)
         {
-            if (Session["cart"] == null)
-            {
-                List<Item> cart = new List<Item>();
-                var product = _db.Products.Find(productId);
-                cart.Add(new Item()
-                {
-                    Product = product,
-                    Quantity = 1
-                });
-                Session["cart"] = cart;
-            }
-            else
-            {
-                List<Item> cart = (List<Item>)Session["cart"];
-                var count = cart.Count();
-                var product = _db.Products.Find(productId);
+            // Retrieve the product from the database
+            var addedProduct = _db.Products
+                .Single(product => product.ProductId == id);
 
-                for (int i = 0; i < count; i++)
-                {
-                    if (cart[i].Product.ProductId == productId)
-                    {
-                        int previousQuantity = cart[i].Quantity;
-                        cart.Remove(cart[i]);
-                        cart.Add(new Item()
-                        {
-                            Product = product,
-                            Quantity = previousQuantity + 1
-                        });
-                        break;
-                    }
-                    else
-                    {
-                        var p = cart.Where(x => x.Product.ProductId == productId).SingleOrDefault();
-                        if (p == null)
-
-                        {
-                            cart.Add(new Item()
-                            {
-                                Product = product,
-                                Quantity = 1
-                            });
-                           
-                        }
-                    }
-                }
-               
-                Session["cart"] = cart;
-               
-            }
-
+            // Add it to the shopping cart
+            var cart = ShoppingCartService.GetCart(this.HttpContext);
+            cart.AddToCart(addedProduct);
             return RedirectToAction("Index");
+        }
+
+        // AJAX: 
+        public ActionResult RemoveFromCart(int id)
+        {
+
+            var cart = ShoppingCartService.GetCart(this.HttpContext); // Remove the item from the cart
+            string productName = _db.Carts
+                .Single(item => item.RecordId == id).Product.ProductName;
+            int itemCount = cart.RemoveFromCart(id);
+            var results = new ShoppingCartRemoveViewModel
+            {
+                Message = Server.HtmlEncode(productName) + "It has been removed from your shopping cart.",
+                // ShoppingCartService
+                CartTotal = cart.GetTotal(),
+                CartCount = cart.GetCount(),
+                ItemCount = itemCount,
+                DeleteId = id
+            };
+            return Json(results);
 
         }
+
+        // Get: ShoppingCart summary
+        [ChildActionOnly]
+        public ActionResult CartSummary()
+        {
+            var cart = ShoppingCartService.GetCart(this.HttpContext);
+            ViewData["CartCount"] = cart.GetCount();
+            return PartialView("CartSummary");
+        }
+
+
 
         public ActionResult RemoveItemFromCart(int productId)
         {
@@ -260,61 +306,9 @@ namespace EZone.WebMVC.Controllers
 
         }
 
-        // Get: order list
+       
 
-        public ActionResult OrderIndex()
-        {
-            return View(CreateOrderService().GetOrdersList());
-        }
-
-        // Get: order detail by id
-        public ActionResult OrderDetailById(int id)
-        {
-            var detail = CreateOrderService().GetOrderDetailById(id);
-            return View(detail);
-        }
-
-        public ActionResult CreateOrder()
-        {
-            return View();
-        }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CreateOrder(OrderCreate model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Order order = new Order()
-        //        {
-        //            OrderId = model.OrderId,
-        //            ProductId = model.ProductId,
-        //            OrderQuantity = model.OrderQuantity,
-        //            FirstName = model.FirstName,
-        //            LastName = model.LastName,
-        //            PhoneNumber = model.PhoneNumber,
-        //            Address = model.Address,
-        //            City = model.City,
-        //            State = model.State,
-        //            ZipCode = model.ZipCode,
-        //            DateOfOrder = DateTimeOffset.Now
-        //        };
-        //        Product product = _db.Products.Find(order.ProductId);
-        //        product.Quantity -= order.OrderQuantity;
-        //        _db.Orders.Add(order);
-        //        _db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
-
-
-        private OrderService CreateOrderService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new OrderService(userId);
-            return service;
-        }
+       
 
         private ProductService CreateProductService()
         {
@@ -331,3 +325,4 @@ namespace EZone.WebMVC.Controllers
         }
     }
 }
+

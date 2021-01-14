@@ -542,6 +542,15 @@ namespace EZone.WebMVC.Controllers
             return View(model);
         }
 
+        private void MigrateShoppingCart(string UserName)
+        {
+            // Associate shopping cart items with logged-in user
+            var cart = ShoppingCartService.GetCart(this.HttpContext);
+            cart.MigrateCart(UserName);
+            Session[ShoppingCartService.CartSessionKey] = UserName;
+        }
+
+        
 
 
         #region Helpers

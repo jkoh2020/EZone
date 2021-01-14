@@ -32,7 +32,7 @@ namespace EZone.Data
         public int Quantity { get; set; }
         [Required]
        // [Range(typeof(double),"1", "10000000000", ErrorMessage ="Invalid Price")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         [Display(Name ="Category Name")]
         public string CategoryName { get; set; }
         [Display(Name = "Category Name")]

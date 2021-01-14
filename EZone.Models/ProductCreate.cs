@@ -22,7 +22,7 @@ namespace EZone.Models
         public string Description { get; set; }
        
         public int Quantity { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         [Display(Name ="Is New")]
         public bool IsNew { get; set; }
     }

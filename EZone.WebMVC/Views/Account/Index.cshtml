@@ -4,12 +4,13 @@
     ViewBag.Title = "Index";
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+<br />
+<br />
+<h2>Users</h2>
 <table class="table">
     <tr>
         <th>
@@ -38,8 +39,7 @@
             </td>
             <td>
                 <a href="@Url.Action("Edit","Account", new { userId = item.UserId })" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a> |
-                @Html.ActionLink("Details", "Details", new { userId = item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { userId = item.UserId })
+                <a href="@Url.Action("Details", "Account", new { userId = item.UserId })" class="btn btn-default"><i class="fa fa-street-view"></i>Details</a>
 
             </td>
         </tr>

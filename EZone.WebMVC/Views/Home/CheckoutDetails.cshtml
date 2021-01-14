@@ -26,13 +26,13 @@ else
         </thead>
         <tbody>
             @{
-                double orderTotal = 0;
-                double tax = 0.07;
+                decimal orderTotal = 0;
+                decimal tax = 0.07M;
             }
             @foreach (Item item in (List<Item>)Session["cart"])
             {
-                double Subtotal = Math.Round((double)item.Quantity * item.Product.Price, 2);
-                orderTotal = Math.Round((double)orderTotal + Subtotal, 2);
+                decimal Subtotal = Math.Round((decimal)item.Quantity * item.Product.Price, 2);
+                orderTotal = Math.Round((decimal)orderTotal + Subtotal, 2);
 
                 <tr>
                     <td>@item.Product.ProductName</td>
@@ -44,8 +44,8 @@ else
 
             }
             @{
-                double taxAmount = Math.Round((double)orderTotal * tax, 2);
-                double withTaxTotal = Math.Round((double)orderTotal + taxAmount, 2);
+                decimal taxAmount = Math.Round((decimal)orderTotal * tax, 2);
+                decimal withTaxTotal = Math.Round((decimal)orderTotal + taxAmount, 2);
             }
             <tr>
                 <td colspan="4" class="text-right"><b> <font color="darkblue">Tax: $@taxAmount</font></b></td>
@@ -55,13 +55,11 @@ else
             </tr>
         </tbody>
     </table>
-    @Html.BeginForm("PlaceOrder", "Home", FormMethod.Post)
-    @*<a class="btn btn-success" href="@Url.Action("PlaceOrder", "Home", new { total = withTaxTotal })" >Place Your order</a>*@
-    @*<input type="submit" value="Place your order" class="btn btn-primary" />*@
-    <input type="hidden" value="@withTaxTotal" name="total"/>
-    <input type="submit" value="PlaceOrder" class="btn-success" btn-sm"/>
-    <a onclick="window.history.back();" class="btn btn-info">Shoppting Cart</a>
- 
+     @*@Html.BeginForm("PlaceOrder", "Home", FormMethod.Post)*@
+    <a class="btn btn-success" href="@Url.Action("PlaceOrder", "Home", new { total = withTaxTotal })" >Place Your order</a>
+    @*<input type="hidden" value="@withTaxTotal" name="total" />*@
+    <a onclick="window.history.back();" class="btn btn-info" >Shoppting Cart</a>
+
 
 }
 

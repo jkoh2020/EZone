@@ -30,7 +30,8 @@
                 <ul class="nav navbar-nav">
 
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="dropdown">
+                    <li>@Html.ActionLink("Cart", "CartIndex", "ShoppingCart")</li>
+                    @*<li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-shopping-cart"></i> Shopping Cart<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             @if (Session["cart"] != null)
@@ -44,14 +45,14 @@
                                 }
 
                                 <li>
-                                    <a class="btn btn-success" href="@Url.Action("Checkout", "Home")">Checkout</a>
+                                    <a class="btn btn-success" href="@Url.Action("Index", "Home")">Checkout</a>
                                 </li>
                             }
 
 
                         </ul>
 
-                    </li>
+                    </li>*@
 
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -63,18 +64,18 @@
                             <li>@Html.ActionLink("Users", "Index", "Account")</li>
                             <li>@Html.ActionLink("Product", "ProductIndex", "Admin") </li>
                             <li>@Html.ActionLink("Category", "IndexCategory", "Admin")</li>
-                            <li>@Html.ActionLink("OrderList", "OrderIndex", "Admin")</li>
-                           
+
+
 
                         }
 
                     }
                     @*else
-                    {
-                        <li>
-                            @Html.ActionLink("Login", "Login", "Account")
-                        </li>
-                    }*@
+        {
+            <li>
+                @Html.ActionLink("Login", "Login", "Account")
+            </li>
+        }*@
 
 
 

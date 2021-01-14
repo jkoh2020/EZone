@@ -1,0 +1,190 @@
+﻿@model EZone.Models.Home.HomeIndexViewModel
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Home Page";
+    <link href="~/Content/MyMainLayOut.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-menus">
+            <ul class="nav nav-pills">
+                <li class="active"><a style="border-radius:initial;" href="#"> Home</a></li>
+                <li class="active"><a style="border-radius:initial;" href="#"> Admin</a></li>
+                <li class="active"><a style="border-radius:initial;" href="#"> My Cart</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-menus">
+            <ul class="nav nav-pills">
+                <li class="active"><a style="border-radius:initial;" href="#"> Home</a></li>
+                <li class="active"><a style="border-radius:initial;" href="/Admin/CategoryIndex"> Admin</a></li>
+                <li class="active"><a style="border-radius:initial;" href="#"> My Cart</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<hr />
+
+
+
+<div id="themeSlider" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#themeSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#themeSlider" data-slide-to="1"></li>
+        <li data-target="#themeSlider" data-slide-to="2"></li>
+    </ol>
+
+
+
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="imgOverlay"></div>
+            <img class="center" style="height:500px; width:50%" ; src="../Images/galaxy s20.jpg" alt="First slide">
+            <div class="carousel-caption">
+                <h3>Galaxy S20</h3>
+
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgOverlay"></div>
+            <img class="center" style="height:500px; width:100%" src="../Images/Thinkpad.jpg" alt="Second slide">
+            <div class="carousel-caption">
+                <h3>Thinkpad</h3>
+
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgOverlay"></div>
+            <img class="center" style="height:500px; width:70%" src="../Images/LG_Gram.jpg" alt="Third slide">
+            <div class="carousel-caption">
+                <h3>LG Gram</h3>
+
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#themeSlider" data-slide="prev">
+        <span class="fa fa-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#themeSlider" data-slide="next">
+        <span class="fa fa-chevron-right"></span>
+    </a>
+    <!--
+    <div class="main-text hidden-xs hidden-sm">
+        <div class="col-md-12 text-center">
+            <h1>Static Headline And Content</h1>
+
+            <div class="clearfix"></div>
+            <div class="btns">
+                <a class="btn btn-md btn-default" href="">Login</a>
+                <a class="btn btn-md btn-default" href="">Registration</a>
+            </div>
+        </div>
+    </div>  -->
+</div>
+
+
+
+Search box
+<div class="olContent f1"><h2 style="color:black">Search Product/Category</h2></div>
+<form method="post">
+    <div class="olSearch fr">
+        <input type="text" name="search" placeholder="Enter products or category" class="inputComn form-control" />
+        <div class="searchIcon">
+            <button type="submit" class="searchBtn">
+                <img style="height:25px; width:25px " src="~/Images/search.png" />
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h2>EZone <small>trend products</small></h2>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row product-container">
+
+
+
+    @foreach (var item in Model.ListOfProducts)
+    {
+        <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
+            <div class="thumbnail product-item" style="height:300px; width:200px">
+                <a href="@Url.Action("UserProductDetail","Home", new { id = item.ProductId })"> <img class="img-responsive" title="Click to View Product detail" style="cursor:pointer; height:160px; width:100%" src="~/ProductImg/@item.ProductImage"></a>
+                <div class="caption">
+                    <h5>@item.ProductName</h5>
+                    <p>$@item.Price</p>
+
+
+
+                    @if (item.Quantity > 0)
+                    {
+                        using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId, url = "Index" }, FormMethod.Post))
+                        {
+                            <button type="submit" class="pull-right"><i class="fa fa-shopping-cart"></i></button>
+                        }
+
+                        <p>Available</p>
+                    }
+                    else
+                    {
+                        <h4>Sold Out </h4>
+                    }
+
+
+                    @if (item.IsNew == true)
+                    {
+                        <div class="product-item-badge">
+                            <p>New</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <p></p>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+<div class="container">
+    <br />
+    @Html.PagedListPager(Model.ListOfProducts, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
+
+</div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}
+

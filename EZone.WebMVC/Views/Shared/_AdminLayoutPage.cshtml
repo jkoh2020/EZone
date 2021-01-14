@@ -5,7 +5,7 @@
 
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" />
     <link rel="stylesheet" type="text/css" href="~/AdminStyle/style.css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/AdminStyle/css/sb-admin-2.min.css" rel="stylesheet">
@@ -20,8 +20,14 @@
         <ul>
             <li>
                 <a href="/Home/Index">
-                    <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                    <span class="icon"><i class="fas fa-store" aria-hidden="true"></i></span>
                     <span class="title">My Store</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Index">
+                    <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                    <span class="title">Main</span>
                 </a>
             </li>
             <li>
@@ -43,23 +49,15 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Order</span>
-                </a>
+                @*<a href="#">
+                        <span class="icon"></span>
+                        <span class="title">Order List</span>
+                    </a>*@
             </li>
         </ul>
     </div>
     @RenderBody()
-    <div class="toggle" onclick="toggleMenu()"></div>
-    <script type="text/javascript">
-        function toggleMenu() {
-            let navigation = document.querySelector('.navigation');
-            let toggle = document.querySelector('.toggle');
-            navigation.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-    </script>
+
 
 </body>
 @Scripts.Render("~/bundles/jquery")
@@ -68,6 +66,15 @@
 @RenderSection("scripts", required: false)
 
 </html>
+<div class="toggle" onclick="toggleMenu()"></div>
+<script type="text/javascript">
+    function toggleMenu() {
+        let navigation = document.querySelector('.navigation');
+        let toggle = document.querySelector('.toggle');
+        navigation.classList.toggle('active');
+        toggle.classList.toggle('active');
+    }
+</script>
 
 <script src="~/Scripts/alertify.min.js"></script>
 <!-- Bootstrap core JavaScript-->
